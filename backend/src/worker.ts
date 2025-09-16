@@ -1,18 +1,24 @@
+// worker.ts
 import { Worker } from "bullmq";
 import { connection } from "./queue";
 import { generateFavicons } from "./processor";
+import path from "path";
+import fs from "fs-extra";
+
 const worker = new Worker(
   "faviconQueue",
   async (job) => {
     console.log(`Worker: processing job ${job.id} (${job.name})`);
 
-    const { inputPath, outputDir } = job.data as {
-      inputPath: string;
-      outputDir: string;
-    };
+    const { inputPath } = job.data as { inputPath: string };
+
+    // compute unique outputDir per job
+    const outputDir = path.join(__dirname, "..", "output", job.id!);
+    await fs.ensureDir(outputDir);
 
     await generateFavicons(inputPath, outputDir);
-    return { ok: true, outputDir };
+
+    return { outputDir, inputPath }; // returned value is accessible in server.ts
   },
   { connection }
 );
