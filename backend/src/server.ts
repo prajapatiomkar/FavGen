@@ -49,7 +49,11 @@ app.post("/upload", upload.single("image"), async (req, res) => {
         },
       }
     );
-    return res.json({ message: "Job queued", jobId: job.id });
+    return res.json({
+      message: "Job queued",
+      jobId: job.id,
+      downloadLink: `http://localhost:3000/download/${job.id}`,
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Failed to queue job" });
