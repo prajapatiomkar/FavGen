@@ -14,15 +14,21 @@
   "license": "ISC",
   "packageManager": "pnpm@10.16.1",
   "dependencies": {
+    "archiver": "^7.0.1",
     "bullmq": "^5.58.5",
+    "cors": "^2.8.5",
     "express": "^5.1.0",
+    "fs-extra": "^11.3.2",
     "ioredis": "^5.7.0",
     "multer": "^2.0.2",
     "sharp": "^0.34.3",
     "to-ico": "^1.1.5"
   },
   "devDependencies": {
+    "@types/archiver": "^6.0.3",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/fs-extra": "^11.0.4",
     "@types/multer": "^2.0.0",
     "@types/node": "^24.5.0",
     "@types/to-ico": "^1.1.3",

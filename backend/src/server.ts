@@ -6,10 +6,10 @@ import fs from "fs";
 import { faviconQueue } from "./queue";
 import archiver from "archiver";
 import fsExtra from "fs-extra";
-
+import cors from "cors";
 const app = express();
 const PORT = process.env.PORT || 3000;
-
+app.use(cors());
 const uploadsDir = path.join(__dirname, "..", "uploads");
 fs.mkdirSync(uploadsDir, { recursive: true });
 
