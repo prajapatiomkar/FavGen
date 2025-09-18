@@ -19,7 +19,7 @@ export default function FileDrop() {
 
   const handleUpload = async () => {
     if (!files || files.length === 0) {
-      setStatusMessage("⚠️ Please select a file first.");
+      setStatusMessage("Please select a file first.");
       return;
     }
 
@@ -28,7 +28,7 @@ export default function FileDrop() {
 
     try {
       setUploading(true);
-      setStatusMessage("⏳ Uploading...");
+      setStatusMessage("Uploading...");
 
       const res = await fetch("http://localhost:3000/upload", {
         method: "POST",
@@ -38,13 +38,13 @@ export default function FileDrop() {
       const data = await res.json();
       if (data.downloadLink) {
         setDownloadLink(data.downloadLink);
-        setStatusMessage("✅ Uploaded successfully!");
+        setStatusMessage("Uploaded successfully!");
       } else {
-        setStatusMessage("⚠️ Upload completed but no link received.");
+        setStatusMessage("Upload completed but no link received.");
       }
     } catch (err) {
       console.error("Upload failed:", err);
-      setStatusMessage("❌ Upload failed. Please try again.");
+      setStatusMessage("Upload failed. Please try again.");
     } finally {
       setUploading(false);
     }
@@ -55,7 +55,7 @@ export default function FileDrop() {
       <Dropzone
         accept={{ "image/*": [] }}
         maxFiles={1}
-        maxSize={1024 * 1024 * 10} // 10MB
+        maxSize={1024 * 1024 * 10}
         minSize={1024}
         onDrop={handleDrop}
         onError={console.error}
@@ -91,26 +91,14 @@ export default function FileDrop() {
         </div>
       )}
 
-      {statusMessage && (
-        <p
-          className={`text-sm ${
-            statusMessage.startsWith("✅")
-              ? "text-green-600"
-              : statusMessage.startsWith("❌")
-              ? "text-red-600"
-              : "text-gray-600"
-          }`}
-        >
-          {statusMessage}
-        </p>
-      )}
+      {statusMessage && <p className="text-sm">{statusMessage}</p>}
 
       {downloadLink && (
         <a
           href={downloadLink}
           className="px-4 py-2 bg-green-500 text-white rounded-lg mt-4 inline-block text-center hover:bg-green-600 transition"
         >
-          ⬇ Download ZIP
+          Download ZIP
         </a>
       )}
     </div>
